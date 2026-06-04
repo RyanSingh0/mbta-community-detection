@@ -1,9 +1,10 @@
 # MBTA Subway Network Community Detection
 
-> **MET CS Web Mining & Graph Analytics · Boston University**
+> **CS566 · Boston University**
 
 ![Python](https://img.shields.io/badge/Python-3.10-blue)
-![NetworkX](https://img.shields.io/badge/NetworkX-3.1-orange)
+![NetworkX](https://img.shields.io/badge/NetworkX-3.x-orange)
+![Folium](https://img.shields.io/badge/Folium-map-77b829)
 ![Modularity](https://img.shields.io/badge/Modularity-0.81-brightgreen)
 ![Communities](https://img.shields.io/badge/Communities-10-green)
 
@@ -69,6 +70,10 @@ METIS partitions large graphs while minimizing edge cuts and balancing partition
 
 Uses the eigenvalues of the graph Laplacian to detect cluster structure. Effective for detecting non-obvious community boundaries that depend on global graph structure rather than just local connectivity.
 
+### Geographic visualization
+
+Detected communities are projected back onto a real Boston map with **Folium** (`results/folium_clustered_map.png`), and compared side-by-side against the actual subway lines (`results/actual_lines.png`) to show how closely the data-driven communities track the real service structure. Runtime and peak-RAM are profiled per stage (`results/stagewise_runtime.png`, `results/peak_ram.png`).
+
 ---
 
 ## Key Findings
@@ -86,12 +91,23 @@ Uses the eigenvalues of the graph Laplacian to detect cluster structure. Effecti
 ## How to Run
 
 ```bash
-pip install networkx python-louvain numpy matplotlib
+pip install -r requirements.txt
+# core libs: networkx, python-louvain, scikit-learn, folium, numpy, matplotlib, pandas
 
-# Download GTFS data first (see data_note.md), then:
-python analysis.py
+# Download the MBTA GTFS feed (see data/ note), then run the notebooks:
+jupyter notebook notebooks/Louvain_method.ipynb        # primary method
+jupyter notebook notebooks/Spectral_clustering.ipynb   # comparison
+# METIS partitioning code is under metis/
 ```
+
+Outputs (community maps, metrics, runtime/RAM plots) are written to `results/`.
 
 ---
 
-**Aryan Meena** · Boston University
+## Team
+
+CS566 group project — **Nida · Pranjal · Aryan Meena** (Boston University).
+
+---
+
+**Aryan Meena** · Boston University · CS566
